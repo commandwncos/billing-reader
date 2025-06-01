@@ -1,0 +1,29 @@
+# Ignora arquivos de configuração do editor  
+.vscode/  
+.idea/  
+*.swp  
+*.swo  
+  
+# Ignora arquivos de cache do Python  
+__pycache__/  
+*.pyc  
+*.pyo  
+*.pyd  
+  
+# Ignora ambientes virtuais  
+venv/  
+env/  
+.env  
+.venv  
+  
+# Ignora arquivos de log  
+*.log  
+  
+# Ignora arquivos de teste  
+tests/  
+*.test  
+*.spec
+
+# Dokerfile
+*Dockerfile*
+*compose.yaml*
