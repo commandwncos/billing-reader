@@ -1,19 +1,30 @@
-from pydantic import BaseModel, Field
-from typing import List
+from pydantic import BaseModel, Field, field_validator
+from uuid import UUID, uuid4
 
+class Document(BaseModel):  
+    filename: str  
+    barcode: str  
+    line: str  
+    value: float  
+    image_base64: str  
+  
+class Clone(BaseModel):  
+    cedente: str = Field(description='Empresa emissora do boleto')  
+    sacado: str = Field(description='Empresa/Cliente pagador do boleto')  
+    data_vencimento: str = Field(description='ano-mes-dia')  
+    apolice: str = Field(description='Número da apólice de seguro associada ao boleto') 
 
-class Output(BaseModel):
-    type: str
-    task_id: str
-    cedente: str = Field(description='Empresa emissora do boleto')
-    sacado: str = Field(description='Empresa/Cliente pagador do boleto')
-    linha_digitavel: str
-    codigo_barras: str
-    data_vencimento: str = Field(description='ano-mes-dia')
-    apolice: str = Field(description='Número da apólice de seguro associada ao boleto: Apólice, Endosso, Numero do Documento, Documento, Referencia de emissão apólice ou Identificação da Parcela.')
-    valor: float = Field(description='Valor do boleto')
+class ResponseModel(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    nome_arquivo: str  
+    cedente: str  
+    sacado: str  
+    codigo_barras: str  
+    linha_digitavel: str  
+    apolice: str  
+    data_vencimento: str  
+    valor: float
 
-# General: define document type
-class DocumentGeral(BaseModel):  
-    documents: List[Output]
-
+    @field_validator('cedente', 'sacado')  
+    def formatar_primeiras_letras(cls, params):  
+        return params.title()
