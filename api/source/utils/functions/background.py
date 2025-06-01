@@ -40,16 +40,16 @@ async def check_size(file: UploadFile, size: int):
     return file
 
 # return image list
-async def convert_pdf_to_images(file: UploadFile, dpi: int, fmt:str):
+async def convert_pdf_to_images(file: UploadFile, dpi: int, fmt:str, encode:str):
     images = convert_from_bytes(await file.read(), dpi=dpi, fmt=fmt)
     for image in images:
         buffer = BytesIO()
         image.save(buffer, format=fmt)
         buffer.seek(0)
         barcode_data = decode(Image.open(buffer))
-        image_base64 = b64encode(buffer.getvalue()).decode('utf-8')  
+        image_base64 = b64encode(buffer.getvalue()).decode(encode)  
         if barcode_data:
-            barcode = barcode_data[0].data.decode(encoding='utf-8')
+            barcode = barcode_data[0].data.decode(encoding=encode)
             line = calcula_linha(barcode)
             match = search(r'(\d{10})$', line)
             boleto_value = None

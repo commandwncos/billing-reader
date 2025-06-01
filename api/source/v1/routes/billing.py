@@ -30,7 +30,7 @@ encoding='utf-8'
 async def billing_extract(files: List[UploadFile] = File(...)):
     files = lenght(files, 10)
     files = await gather(*(check_size(file, 654003) for file in files if file.content_type == mime_type))
-    documents = await gather(*(convert_pdf_to_images(file, dpi, format) for file in files))
+    documents = await gather(*(convert_pdf_to_images(file, dpi, format, encoding) for file in files))
     response = await process_documents_with_azure(documents=documents)
     return response
 
