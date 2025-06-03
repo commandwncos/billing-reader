@@ -71,7 +71,7 @@ async def convert_pdf_to_images(file: UploadFile, dpi: int, fmt:str, encode:str)
                 barcode=barcode,
                 line=line,
                 value=round(int(value) / 100, 2),
-                image_base64=image_base64
+                # image_base64=image_base64
             )
 
 # process single document
@@ -98,7 +98,7 @@ async def process_single_document_with_azure(client: AzureOpenAI, document: Docu
                 response = client.beta.chat.completions.parse(  
                     model=genv("MODEL_NAME"),  
                     temperature=0,  
-                    max_tokens=5000,  
+                    max_tokens=10000,  
                     response_format=Clone,  
                     messages=messages  
                 )  
@@ -136,4 +136,10 @@ async def process_documents_with_azure(documents: List[Document]):
       
     all_responses = await gather(*tasks)  
       
-    return all_responses  
+    return all_responses
+
+
+
+
+
+# 

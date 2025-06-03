@@ -6,7 +6,7 @@ class Document(BaseModel):
     barcode: str  
     line: str  
     value: float  
-    image_base64: str  
+    # image_base64: str  
   
 class Clone(BaseModel):  
     cedente: str = Field(description='Empresa emissora do boleto')  

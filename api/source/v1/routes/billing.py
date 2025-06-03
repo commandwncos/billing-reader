@@ -22,7 +22,7 @@ format:str='JPEG'
 encoding='utf-8'
 
 @router.post('/upload',
-             response_model=List[ResponseModel],
+            #  response_model=List[ResponseModel],
              summary='Endpoint para upload dos documentos bancarios',
              status_code=status.HTTP_202_ACCEPTED,
              response_description='Accepted'
@@ -31,7 +31,7 @@ async def billing_extract(files: List[UploadFile] = File(...)):
     files = lenght(files, 30)
     files = await gather(*(check_size(file, 654003) for file in files if file.content_type == mime_type))
     documents = await gather(*(convert_pdf_to_images(file, dpi, format, encoding) for file in files))
-    response = await process_documents_with_azure(documents=documents)
+    # response = await process_documents_with_azure(documents=documents)
     return documents
 
 
