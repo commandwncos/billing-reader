@@ -26,7 +26,7 @@ def lenght(array: List[UploadFile], number: int):
     if len(array) > number:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Only 20 files allowed",
+            detail=f"Only {number} files allowed",
         )
     return array
 
@@ -71,7 +71,7 @@ async def convert_pdf_to_images(file: UploadFile, dpi: int, fmt:str, encode:str)
                 barcode=barcode,
                 line=line,
                 value=round(int(value) / 100, 2),
-                # image_base64=image_base64
+                image_base64=image_base64
             )
 
 # process single document

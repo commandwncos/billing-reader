@@ -15,7 +15,7 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt  
   
 # Update apt and install additional packages  
-RUN apt update --yes  
+RUN apt update  
 RUN apt upgrade --yes  
 RUN apt install poppler-utils --yes  
 RUN apt install libzbar0 --yes  
